@@ -1,10 +1,12 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int N = sc.nextInt();
+        int N = Integer.parseInt(br.readLine());
         int[] cows = new int[10];
         int moveCount = 0;
 
@@ -13,8 +15,9 @@ public class Main {
         }
 
         for (int i = 0; i < N; i++) {
-            int cowNum = sc.nextInt();
-            int cowPos = sc.nextInt();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int cowNum = Integer.parseInt(st.nextToken());
+            int cowPos = Integer.parseInt(st.nextToken());
 
             if (cows[cowNum - 1] == 0 && cowPos == 1) {
                 cows[cowNum - 1] = cowPos;
@@ -25,6 +28,7 @@ public class Main {
             } else
                 cows[cowNum - 1] = cowPos;
         }
-        System.out.println(moveCount);
+        bw.write(Integer.toString(moveCount));
+        bw.flush();
     }
 }
