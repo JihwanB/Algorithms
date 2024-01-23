@@ -1,10 +1,11 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
         int coins = 0;
 
         while (n > 0) {
@@ -17,9 +18,10 @@ public class Main {
             }
         }
         if (n < 0) {
-            System.out.println(-1);
+            bw.write(Integer.toString(-1));
         } else {
-            System.out.println(coins);
+            bw.write(Integer.toString(coins));
         }
+        bw.flush();
     }
 }
