@@ -1,30 +1,33 @@
 import java.io.*;
 import java.util.*;
 
-class Main
-{
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int N = sc.nextInt();
-        String[][] records = new String[N][2];
-        for (int i = 0; i < N; i++) {
-            records[i][0] = sc.next();
-            records[i][1] = sc.next();
+        int n = Integer.parseInt(br.readLine());
+
+        HashMap<String, String> map = new HashMap<>();
+
+        while (n-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            map.put(st.nextToken(), st.nextToken());
         }
 
-        Arrays.sort(records, new Comparator<String[]>() {
+        ArrayList<String> list = new ArrayList<>(map.keySet());
+        Collections.sort(list, new Comparator<String>() {
             @Override
-            public int compare(String[] o1, String[] o2) {
-                return o2[0].compareTo(o1[0]);
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
             }
         });
 
-        for (int i = 0; i < N - 1; i++) {
-            if (records[i][1].equals("enter") && !records[i][0].equals(records[i + 1][0]))
-                System.out.println(records[i][0]);
+        for (String name : list) {
+            if (map.get(name).equals("enter")) {
+                bw.write(name + "\n");
+            }
         }
-        if (records[N - 1][1].equals("enter"))
-            System.out.println(records[N - 1][0]);
+        bw.flush();
     }
 }
