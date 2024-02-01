@@ -1,25 +1,44 @@
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
+import java.util.HashMap;
+import java.util.Arrays;
+
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+
+        int[] origin = new int[N];
+        int[] sorted = new int[N];
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            numbers.add(Integer.parseInt(st.nextToken()));
+        for (int i = 0; i < N; i++) {
+            sorted[i] = origin[i] = Integer.parseInt(st.nextToken());
         }
 
-        List<Integer> sortedNumbers = new ArrayList<>(new TreeSet<>(numbers));
+        Arrays.sort(sorted);
 
-        for (Integer number : numbers) {
-            int i = Collections.binarySearch(sortedNumbers, number);
-            bw.write(i + " ");
+        int rank = 0;
+        for (int key : sorted) {
+            if (!map.containsKey(key)) {
+                map.put(key, rank);
+                rank++;
+            }
         }
+
+        for (int key : origin) {
+            int ranking = map.get(key);
+            bw.write(ranking + " ");
+        }
+
         bw.flush();
+        
     }
 }
