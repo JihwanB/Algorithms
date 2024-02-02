@@ -38,7 +38,7 @@ public class Main {
                     if (deque.isEmpty()) {
                         bw.write("-1\n");
                     } else {
-                        bw.write(deque.element() + "\n");
+                        bw.write(deque.getFirst() + "\n");
                     }
                     break;
                 case "back":
