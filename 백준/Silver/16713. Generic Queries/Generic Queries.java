@@ -32,10 +32,8 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
-//            if (i == 0) {
-//                xor = acc[end] ^ acc[start - 1];
-//            }
             xor ^= acc[end] ^ acc[start - 1];
+           
         }
         sb.append(xor);
         System.out.println(sb);
