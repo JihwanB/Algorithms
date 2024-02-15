@@ -1,42 +1,37 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
-class Main
-{
-    static boolean isExist(int[] arr, int x) {
-        int l = 0, r = arr.length - 1;
-        while (l <= r) {
-            int m = (l + r) / 2;
-            if (arr[m] < x) l = m + 1;
-            else if (arr[m] > x) r = m - 1;
-            else return true;
-        }
-        return false;
-    }
+public class Main {
 
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        int N = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
-        for (int i = 0; i < N; i++)
-            arr[i] = sc.nextInt();
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+        }
 
-        int[] sums = new int[N * (N + 1) / 2];
-        int sumIndex = 0;
+        Set<Integer> U = new HashSet<>();
         for (int i = 0; i < N; i++)
             for (int j = i; j < N; j++)
-                sums[sumIndex++] = arr[i] + arr[j];
+                U.add(arr[i] + arr[j]);
 
-        Arrays.sort(sums);
 
-        int ans = -1;
+        int max = -1;
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++) {
                 int target = arr[i] - arr[j];
-                if (isExist(sums, target))
-                    ans = Math.max(ans, arr[i]);
+                if(U.contains(target))
+                    max = Math.max(max, arr[i]);
             }
-        System.out.println(ans);
+
+        System.out.println(max);
+
     }
+
 }
