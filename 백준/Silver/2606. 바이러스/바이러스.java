@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,7 +19,7 @@ public class Main {
         br = new BufferedReader(new InputStreamReader(System.in));
         v = Integer.parseInt(br.readLine());
         e = Integer.parseInt(br.readLine());
-        
+
         graph = new int[v + 1][v + 1];
         visited = new boolean[v + 1];
 
@@ -28,8 +31,24 @@ public class Main {
             graph[dst][src] = 1;
         }
 
-        dfs(1);
-        System.out.println(cnt);
+        dfsStack(1);
+        System.out.println(cnt - 1);
+    }
+
+    static void dfsStack(int node) {
+        Stack<Integer> s = new Stack<>();
+        s.push(node);
+        visited[node] = true;
+        while (!s.empty()) {
+            int cur = s.pop();
+            cnt++;
+            for (int i = 1; i <= v; i++) {
+                if (graph[cur][i] == 1 && !visited[i]) {
+                    s.push(i);
+                    visited[i] = true;
+                }
+            }
+        }
     }
 
     static void dfs(int node) {
@@ -38,6 +57,22 @@ public class Main {
             if (graph[node][i] == 1 && !visited[i]) {
                 cnt++;
                 dfs(i);
+            }
+        }
+    }
+
+    static void bfs(int node) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(node);
+        visited[node] = true;
+        while (!q.isEmpty()) {
+            int cur = q.poll();
+            cnt++;
+            for (int i = 1; i <= v; i++) {
+                if (graph[cur][i] == 1 && !visited[i]) {
+                    q.offer(i);
+                    visited[i] = true;
+                }
             }
         }
     }
